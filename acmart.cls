@@ -37,7 +37,7 @@
 %%   Right brace   \}     Tilde         \~}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{acmart}
-[2017/08/31 v1.47 Typesetting articles for Association of
+[2017/09/09 v1.48 Typesetting articles for Association of
 Computing Machinery]
 \def\@classname{acmart}
 \InputIfFileExists{acmart-preload-hook.tex}{%
@@ -82,6 +82,7 @@ Computing Machinery]
 \define@boolkey+{acmart.cls}[@ACM@]{review}[true]{%
   \if@ACM@review
     \PackageInfo{\@classname}{Using review mode}%
+    \AtBeginDocument{\@ACM@printfoliostrue}%
   \else
     \PackageInfo{\@classname}{Not using review mode}%
   \fi}{\PackageError{\@classname}{Option review can be either true or
@@ -2460,7 +2461,7 @@ Computing Machinery]
   \if@ACM@acmthm
   \theoremstyle{acmplain}
   \@ifundefined{theorem}{%
-  \newtheorem{theorem}{Theorem}[section]
+  \newtheorem{theorem}{Theorem}
   }{}
   \@ifundefined{conjecture}{%
   \newtheorem{conjecture}[theorem]{Conjecture}

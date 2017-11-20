@@ -68,7 +68,7 @@ INTEGERS { output.state before.all mid.sentence after.sentence after.block }
 
 INTEGERS { show-isbn-10-and-13 }  % initialized below in begin.bib
 
-INTEGERS { nameptr namesleft numnames }
+INTEGERS { nameptr namesleft numnames maxname}
 
 INTEGERS { multiresult }
 
@@ -1023,28 +1023,27 @@ FUNCTION { format.names }
   % All names are formatted in this routine.
 
   's :=
+  %comaniac: Add maximum allowed author numbers
+  #1 'maxname :=               % maxname = 1;
   #1 'nameptr :=               % nameptr = 1;
   s num.names$ 'numnames :=    % numnames = num.name$(s);
-  numnames 'namesleft :=
+  maxname #1 + 'namesleft :=
     { namesleft #0 > }
     { nameptr #1 =
         %NO: BAD ORDER: {"{" s nameptr "{ff~}{ll}{, jj}{, vv}" format.name$ * "}" * 't := }
         %NO: BAD ORDER: {"{" s nameptr "{ff~}{ll}{, jj}{, vv}" format.name$ * "}" * 't := }
-        {"\bibinfo{person}{" s nameptr "{ff }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
-        {"\bibinfo{person}{" s nameptr "{ff }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
+        %comaniac: Change {ff } to {f. } to only show the initial of the author first name
+        {"\bibinfo{person}{" s nameptr "{f. }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
+        {"\bibinfo{person}{" s nameptr "{f. }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
       if$
       nameptr #1 >
         {
-          namesleft #1 >
+         namesleft #1 >
             { ", " * t * }
             {
-              numnames #2 >
-                { "," * }
-                'skip$
-              if$
-              t "\bibinfo{person}{others}" =
-                { " {et~al\mbox{.}}" * } % jrh: avoid spacing problems
-                { " {and} " * t * } % from Chicago Manual of Style
+              numnames maxname >
+                { " {et~al\mbox{.}}" * }
+                { " " }
               if$
             }
           if$

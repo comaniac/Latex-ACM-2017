@@ -1,0 +1,136 @@
+\documentclass[sigconf]{acmart}
+
+% Comment out the following two lines for camera-ready version.
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+
+\pagestyle{plain} % removes running headers
+
+\usepackage{booktabs} % For formal tables
+\usepackage{multirow}
+\usepackage{caption} 
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+}
+
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\sloppy
+
+% Copyright
+\setcopyright{none}
+\setcopyright{acmcopyright}
+\setcopyright{acmlicensed}
+\setcopyright{rightsretained}
+\setcopyright{usgov}
+\setcopyright{usgovmixed}
+\setcopyright{cagov}
+\setcopyright{cagovmixed}
+
+\usepackage{listings}
+\usepackage{lstlinebgrd}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\definecolor{bg}{rgb}{0.9,0.9,0.9}
+
+% DOI
+\acmDOI{10.475/123_4}
+
+% ISBN
+\acmISBN{123-4567-24-567/08/06}
+
+%Conference
+\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El Paso, Texas USA} 
+\acmYear{1997}
+\copyrightyear{2016}
+\acmPrice{15.00}
+
+\usepackage[normalem]{ulem}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\renewcommand{\algorithmicforall}{\textbf{for each}}
+\newcommand{\algorithmiccontinue}{\textbf{continue}}
+\newcommand{\CONTINUE}{\STATE \algorithmiccontinue}
+
+\renewcommand{\lstlistingname}{Code}
+\lstset{frame=tb,
+  language=c++,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\scriptsize\ttfamily},
+  numbers=left,
+  numbersep=3pt,
+  numberstyle=\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2,
+  escapeinside={(*}{*)}
+}
+
+%%%%%%%%%%% SPACE CONTROL START
+
+% Space between lines
+\renewcommand\baselinestretch{1.0}
+
+% Space of itemize
+\setlist[itemize,1]{itemsep=0.5pt,partopsep=0pt,parsep=\parskip, topsep=2pt, leftmargin=10pt,}
+\setlist[enumerate,1]{itemsep=0.5pt,partopsep=0pt,parsep=\parskip, topsep=2pt, leftmargin=10pt,}
+
+\sloppy
+
+% Space for table and figure captions
+\captionsetup[table]{skip=1pt}
+\captionsetup[figure]{skip=3pt}
+
+% Spacing before and after tables and figures
+\setlength{\textfloatsep}{9pt}
+\setlength{\intextsep}{6pt}
+
+% Space between section number and title (default 1em)
+\makeatletter
+\renewcommand*{\@seccntformat}[1]{\csname the#1\endcsname\hspace{0.5em}}
+\makeatother
+
+%%%%%%%%%% SPACE CONTROL END
+
+\author{
+Cody Hao Yu, Yuchen Hao
+}
+
+\begin{document}
+
+\title{
+Example Conference Article
+}
+
+\input{abstract}
+
+\maketitle
+
+\input{content}
+
+\bibliographystyle{ACM-Reference-Format}
+{
+\scriptsize
+\bibliography{references}
+}
+
+\end{document}
+

@@ -76,7 +76,7 @@ INTEGERS { len }
 
 INTEGERS { last.extra.num }
 
-STRINGS { s t t.org u}
+STRINGS { s t t.org u }
 
 STRINGS { last.label next.extra }
 
@@ -1025,12 +1025,12 @@ FUNCTION { format.names }
 
   's :=
   %comaniac: Add maximum allowed author numbers
-  #3 'maxname :=               % maxname = 1;
-  #1 'nameptr :=               % nameptr = 1;
+  #99 'maxname :=               % maxname = ?;
+  #1  'nameptr :=               % nameptr = 1;
   s num.names$ 'numnames :=    % numnames = num.name$(s);
   maxname numnames >
-    { numnames #1 + 'namesleft := }
-    { maxname #1 + 'namesleft := }
+    { numnames 'namesleft := }
+    { maxname 'namesleft := }
   if$
   
     { namesleft #0 > }
@@ -1041,15 +1041,23 @@ FUNCTION { format.names }
         {"\bibinfo{person}{" s nameptr "{f. }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
         {"\bibinfo{person}{" s nameptr "{f. }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
       if$
-      nameptr #1 >
+      nameptr #1 > 
         {
-         namesleft #1 >
+          % Reach the author number limit
+          namesleft #1 >
             { ", " * t * }
-            {
-              numnames maxname >
+            { % Skip "others" in the author list and only write "et al"
+              t "\bibinfo{person}{others}" =
                 { " {et~al\mbox{.}}" * }
-                { " " }
-              if$
+                { % Write the last author otherwise
+                  ", " * t *
+                  % Write "et al" if one or more authors are skipped
+                  numnames maxname >
+                    { " {et~al\mbox{.}}" * }
+                    { "\mbox{.}" * }
+                  if$
+                }
+                if$
             }
           if$
         }

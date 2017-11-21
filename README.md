@@ -7,3 +7,9 @@
 - Enforce author first names in reference section to be initial.
 - The maximum displayed author number can be adjusted by modifying ACM-Reference-Format.bst:1027
 
+## TODO
+- Original version will transform "and others" in the author field of .bib file
+to "et al", but it's not supported in the current modification, because the we
+automatically cut the exceeded authors to "et al", although we should still
+support "and others" so that we can compatible with all existing projects.
+

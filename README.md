@@ -9,7 +9,7 @@
 
 ## TODO
 - Original version will transform "and others" in the author field of .bib file
-to "et al", but it's not supported in the current modification, because the we
+to "et al", but it's not supported in the current modification, because we
 automatically cut the exceeded authors to "et al", although we should still
 support "and others" so that we can compatible with all existing projects.
 

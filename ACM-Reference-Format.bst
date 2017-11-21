@@ -76,7 +76,7 @@ INTEGERS { len }
 
 INTEGERS { last.extra.num }
 
-STRINGS { s t t.org u }
+STRINGS { s t t.org u}
 
 STRINGS { last.label next.extra }
 
@@ -449,10 +449,9 @@ FUNCTION { format.year }
 { % push year string or "[n. d.]" onto output stack
   %% Because year is a mandatory field, we always force SOMETHING
   %% to be output
-  %%comaniac: Remove "[n. d.]"
   "\bibinfo{year}{"
   year empty.or.unknown
-    { "" }
+    { "[n. d.]" }
     { year }
   if$
   *  "}" *
@@ -754,11 +753,12 @@ FUNCTION { output.url } % UTAH
 
 FUNCTION { output.year.check }
 { % warn if year empty, output top string and leave " YEAR<label>" on stack in mid-sentence
+  %comaniac: Turn off the warning and skip the year if missing.
   year empty.or.unknown
-     { "empty year in " cite$ * warning$ 
+     { %"empty year in " cite$ * warning$ 
        write$
-       " \bibinfo{year}{""}" %comaniac: Remove [n. d.]
-       "\natexlab{" extra.label * "}" * *
+       %" \bibinfo{year}{[n. d.]}"
+       %"\natexlab{" extra.label * "}" * *
        mid.sentence 'output.state :=
      }
      { write$
@@ -1025,10 +1025,14 @@ FUNCTION { format.names }
 
   's :=
   %comaniac: Add maximum allowed author numbers
-  #1 'maxname :=               % maxname = 1;
+  #3 'maxname :=               % maxname = 1;
   #1 'nameptr :=               % nameptr = 1;
   s num.names$ 'numnames :=    % numnames = num.name$(s);
-  maxname #1 + 'namesleft :=
+  maxname numnames >
+    { numnames #1 + 'namesleft := }
+    { maxname #1 + 'namesleft := }
+  if$
+  
     { namesleft #0 > }
     { nameptr #1 =
         %NO: BAD ORDER: {"{" s nameptr "{ff~}{ll}{, jj}{, vv}" format.name$ * "}" * 't := }
@@ -3251,3 +3255,4 @@ FUNCTION { end.bib }
 }
 
 EXECUTE {end.bib}
+

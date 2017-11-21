@@ -1,5 +1,6 @@
 # ACM Latex Template 2017
-This is a modified version of ACM 2017 LaTex template.
+- This is a modified version of ACM 2017 LaTex template.
+- The project is tested on Overleaf.
 
 ## Changelist
 - Use global numbering for theorems instead of sections.

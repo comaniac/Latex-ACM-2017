@@ -449,9 +449,10 @@ FUNCTION { format.year }
 { % push year string or "[n. d.]" onto output stack
   %% Because year is a mandatory field, we always force SOMETHING
   %% to be output
+  %%comaniac: Remove "[n. d.]"
   "\bibinfo{year}{"
   year empty.or.unknown
-    { "[n. d.]" }
+    { "" }
     { year }
   if$
   *  "}" *
@@ -756,7 +757,7 @@ FUNCTION { output.year.check }
   year empty.or.unknown
      { "empty year in " cite$ * warning$ 
        write$
-       " \bibinfo{year}{[n. d.]}"  
+       " \bibinfo{year}{""}" %comaniac: Remove [n. d.]
        "\natexlab{" extra.label * "}" * *
        mid.sentence 'output.state :=
      }

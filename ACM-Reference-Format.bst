@@ -1041,28 +1041,29 @@ FUNCTION { format.names }
         {"\bibinfo{person}{" s nameptr "{f. }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
         {"\bibinfo{person}{" s nameptr "{f. }{vv }{ll}{, jj}" format.name$ * "}" * 't := }
       if$
+
       nameptr #1 > 
-        {
-          % Reach the author number limit
-          namesleft #1 >
-            { ", " * t * }
-            { % Skip "others" in the author list and only write "et al"
-              t "\bibinfo{person}{others}" =
-                { " {et~al\mbox{.}}" * }
-                { % Write the last author otherwise
-                  ", " * t *
-                  % Write "et al" if one or more authors are skipped
-                  numnames maxname >
-                    { " {et~al\mbox{.}}" * }
-                    { "\mbox{.}" * }
-                  if$
-                }
-                if$
-            }
-          if$
-        }
-        't
+        { ", " * }
+        { "" * }
       if$
+      % Reach the author number limit
+      namesleft #1 >
+        { t * }
+        { % Skip "others" in the author list and only write "et al"
+          t "\bibinfo{person}{others}" =
+            { " {et~al\mbox{.}}" * }
+            { % Write the last author otherwise
+              t *
+              % Write "et al" if one or more authors are skipped
+              numnames maxname >
+                { " {et~al\mbox{.}}" * }
+                { "\mbox{.}" * }
+              if$
+            }
+            if$
+        }
+      if$
+
       nameptr #1 + 'nameptr :=          % nameptr += 1;
       namesleft #1 - 'namesleft :=      % namesleft =- 1;
     }
